@@ -1,0 +1,17 @@
+{ "name": "Confluence"
+, "description": "A team chat and timeline system"
+, "contributors":
+  [ "Chris Kincanon" ]
+, "version": "0.1.0"
+, "main": "./app.js"
+, "repository":
+  { "type": "git"
+  , "url": "http://github.com/rubyalchemist/confluence.git"
+  }
+, "dependencies":
+  { "express": "~3.1.1"
+  , "express-partials": "~0.0.6"
+  , "haml-coffee": "~1.10.3"  
+  }
+, "engine": { "node": ">=0.10.3" }
+}

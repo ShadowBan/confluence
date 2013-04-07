@@ -1,0 +1,2 @@
+%h1= "Welcome #{ @name }"
+%p You've rendered your first Haml Coffee view.
