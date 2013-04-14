@@ -27,7 +27,7 @@ io.sockets.on('connection', function(client){
 
   client.on("message",function (data){
     client.get('nickname',function(err,name){
-      var message = "<li class='chat-line'><span class='name'>"+name+"</span><span class='message'>"+data+"</span></li>";
+      var message = "<li class='chat-line'><span class='name'>"+name+": </span><span class='message'>"+data+"</span></li>";
       client.broadcast.emit("messages", message);
     });
   });
