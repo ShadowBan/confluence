@@ -6,7 +6,7 @@
 
 :javascript
   var nickname = '';
-  var socket = io.connect('http://localhost:7000');
+  var socket = io.connect('http://confluencechat.herokuapp.com');
   $('#chat_form').submit(function(e){
     var message = $('#chat_input').val();
     socket.emit('message',message);
