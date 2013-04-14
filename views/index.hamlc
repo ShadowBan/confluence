@@ -1,2 +1,23 @@
-%h1= "Welcome #{ @name }"
-%p You've rendered your first Haml Coffee view.
+%ul#chat
+
+%form#chat_form
+  %input#chat_input
+  %button="Submit"
+
+:javascript
+  var nickname = '';
+  var socket = io.connect('http://localhost:7000');
+  $('#chat_form').submit(function(e){
+    var message = $('#chat_input').val();
+    socket.emit('message',message);
+    $('#chat').append("<li class='chat-line'><div class='name'>"+nickname+"</div><div class='message'>"+message+"</div></li>");
+    $('#chat_form input').val('');
+    return false;
+  });
+
+  socket.on('connect', function(data){
+    nickname = prompt("What should I call you?");
+    socket.emit('join',nickname);
+  });
+
+  socket.on('messages', function(data){$('#chat').append(data);});
