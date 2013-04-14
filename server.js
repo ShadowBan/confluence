@@ -20,6 +20,11 @@ var port = process.env.PORT || 5000;
 var server = require('http').createServer(app).listen(port);
 var io = require('socket.io').listen(server);
 
+io.configure(function () { 
+  io.set("transports", ["xhr-polling"]); 
+  io.set("polling duration", 10); 
+});
+
 io.sockets.on('connection', function(client){
   client.on('join',function(name){
     client.set('nickname',name)
