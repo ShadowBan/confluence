@@ -5,24 +5,3 @@
 %form#chat_form{:style=>"display:none;"}
   %input#chat_input
   %button="Submit"
-
-:javascript
-  var nickname = '';
-  //var socket = io.connect('http://localhost:5000');
-  var socket = io.connect('http://confluencechat.herokuapp.com');
-  $('#chat_form').submit(function(e){
-    var message = $('#chat_input').val();
-    socket.emit('message',message);
-    $('#chat').append("<li class='chat-line'><span class='name'>"+nickname+": </span><span class='message'>"+message+"</span></li>");
-    $('#chat_form input').val('');
-    return false;
-  });
-
-  socket.on('connect', function(data){
-    nickname = prompt("What should I call you?");
-    socket.emit('join',nickname);
-    $('#chat_form').show();
-    $('#loading').hide();
-  });
-
-  socket.on('messages', function(data){$('#chat').append(data);});

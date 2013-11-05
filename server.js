@@ -1,41 +1,59 @@
-var express = require('express');
-var app = express();
-var partials = require('express-partials');
-var fs = require('fs');
+var http = require('http')
+  , express = require('express')
+  , app = express()
+  , port = process.env.PORT || 5000
+  , partials = require('express-partials')
+
 
 app.engine('hamlc', require('haml-coffee').__express);
+
 app.use(partials());
-app.use(express.logger());
 
 app.configure(function() {
   app.set('view engine', 'hamlc');
   app.set('layout', 'layout');
 })
 
+app.use(express.static(__dirname + '/public'));
+
+var server = http.createServer(app).listen(port);
+var io = require('socket.io').listen(server);
+
+console.log('http server listening on %d', port);
+
 app.get('/', function(req, res) {
   res.render('index', { name: 'Express user' });
 })
 
-var port = process.env.PORT || 5000;
-var server = require('http').createServer(app).listen(port);
-var io = require('socket.io').listen(server);
+io.sockets.on('connection', function (socket) {
+  console.log('websocket connection open');
 
-io.configure(function () { 
-  io.set("transports", ["xhr-polling"]); 
-  io.set("polling duration", 10); 
-});
-
-io.sockets.on('connection', function(client){
-  client.on('join',function(name){
-    client.set('nickname',name)
+  socket.on('join',function(name){
+    socket.set('nickname',name)
   });
 
-  client.on("message",function (data){
-    client.get('nickname',function(err,name){
+  socket.on("message",function (data){
+    socket.get('nickname',function(err,name){
       var message = "<li class='chat-line'><span class='name'>"+name+": </span><span class='message'>"+data+"</span></li>";
-      client.broadcast.emit("messages", message);
+      socket.broadcast.emit("messages", message);
     });
   });
+
+  socket.on('disconnect', function() {
+    console.log('websocket connection close');
+  });
 });
 
-console.log('App started on port '+port);
+
+
+
+
+
+
+
+
+
+
+
+
+

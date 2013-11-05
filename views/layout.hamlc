@@ -2,6 +2,8 @@
 %head
   %title Express App
   %script{:src => "http://code.jquery.com/jquery-1.9.1.min.js"}
+  %script{:src => "https://ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"}
   %script{:src => "/socket.io/socket.io.js"}
+  %script{:src => "/javascript/app.js"}
   %body
     != @body
