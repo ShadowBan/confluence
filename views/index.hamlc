@@ -1,7 +1,7 @@
-%ul#chat
-
-#loading
-  Loading...
-%form#chat_form{:style=>"display:none;"}
-  %input#chat_input
-  %button="Submit"
+%div{:ng-controller=>'ChatCtrl'}
+  #chat-log
+    %p{:ng-repeat=>'message in messages'}
+      {{message.user}}: {{message.text}}
+  %form{:ng-submit='sendMessage()'}
+    %input{:ng-model=>"message"}
+    %input{:type=>"submit", :value=>'Submit'}
