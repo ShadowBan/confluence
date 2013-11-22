@@ -1,7 +1,16 @@
 %div{:ng-controller=>'ChatCtrl'}
-  #chat-log
-    %p{:ng-repeat=>'message in messages'}
-      {{message.user}}: {{message.text}}
-  %form{:ng-submit='sendMessage()'}
-    %input{:ng-model=>"message"}
-    %input{:type=>"submit", :value=>'Submit'}
+  / Sidebar
+  %aside.large-3.columns
+    %ul
+      %li{:ng-repeat=>'user in users'}
+        {{user}}
+  / End Sidebar
+  / Main Blog Content
+  .large-9.columns{role: "content"}
+    #chat-log
+      %p{:ng-repeat=>'message in messages'}
+        {{message.user}}: {{message.text}}
+    %form{:ng-submit='sendMessage()'}
+      %input{:ng-model=>"message"}
+      %input{:type=>"submit", :value=>'Submit'}
+  / End Main Content

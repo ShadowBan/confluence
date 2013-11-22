@@ -85,10 +85,10 @@ var userNames = (function () {
   var names = {};
 
   var claim = function (name) {
-    if (!name || userNames[name]) {
+    if (!name || names[name]) {
       return false;
     } else {
-      userNames[name] = true;
+      names[name] = true;
       return true;
     }
   };
@@ -109,7 +109,7 @@ var userNames = (function () {
   // serialize claimed names as an array
   var get = function () {
     var res = [];
-    for (user in userNames) {
+    for (user in names) {
       res.push(user);
     }
 
@@ -117,8 +117,8 @@ var userNames = (function () {
   };
 
   var free = function (name) {
-    if (userNames[name]) {
-      delete userNames[name];
+    if (names[name]) {
+      delete names[name];
     }
   };
 

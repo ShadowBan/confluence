@@ -2,11 +2,37 @@
 %html{:ng-app=>'confluenceApp'}
   %head
     %title Confluence
-    %script{:src => "http://code.jquery.com/jquery-1.9.1.min.js"}
-    %script{:src => "https://ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"}
-    %script{:src => "/socket.io/socket.io.js"}
-    %script{:src => "/javascript/app.js"}
-    %script{:src => "/javascript/services.js"}
-    %script{:src => "/javascript/controllers.js"}
+    
+    %link{href: "css/normalize.css", rel: "stylesheet"}/
+    %link{href: "css/foundation.css", rel: "stylesheet"}/
+    / If you are using the gem version, you need this only
+    %link{href: "css/app.css", rel: "stylesheet"}/
+    %script{src: "js/vendor/custom.modernizr.js"}
     %body
-      != @body
+      / Nav Bar
+      .row
+        .large-12.columns
+          .nav-bar.right
+            %ul.button-group
+              %li
+                %a.button{href: "#"} Link 1
+          %h2
+            Confluence
+          %hr/
+      / End Nav
+      / Main Page Content and Sidebar
+      .row
+        != @body
+      / End Main Content and Sidebar
+      / Footer
+      %footer.row
+        #bottom-script
+          %script{:src => "http://code.jquery.com/jquery-1.9.1.min.js"}
+          %script{:src => "https://ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"}
+          %script{:src => "/socket.io/socket.io.js"}
+          %script{:src => "/js/app.js"}
+          %script{:src => "/js/services.js"}
+          %script{:src => "/js/controllers.js"}
+          %script{src: "js/foundation.min.js"}
+          :javascript
+            $(document).foundation();

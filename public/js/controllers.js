@@ -1,5 +1,5 @@
 var confluenceControllers = angular.module('confluenceControllers',[]);
-
+var uj;
 confluenceControllers.controller('ChatCtrl',['$scope', 'socket',
   function($scope, socket) {
     // Socket listeners
@@ -8,6 +8,7 @@ confluenceControllers.controller('ChatCtrl',['$scope', 'socket',
     socket.on('init', function (data) {
       $scope.name = data.name;
       $scope.users = data.users;
+      uj = data.users;
       $scope.messages = [{user:"System",text:("Hello " + data.name)}];
     });
 
