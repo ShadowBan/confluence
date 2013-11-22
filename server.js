@@ -45,22 +45,22 @@ io.sockets.on('connection', function (socket) {
   });
 
   // broadcast a user's message to other users
-  socket.on('send:message', function (data) {
-    socket.broadcast.emit('send:message', {
+  socket.on('message:send', function (data) {
+    socket.broadcast.emit('message:send', {
       user: name,
       text: data.message
     });
   });
 
   // validate a user's name change, and broadcast it on success
-  socket.on('change:name', function (data, fn) {
+  socket.on('user:name:change', function (data, fn) {
     if (userNames.claim(data.name)) {
       var oldName = name;
       userNames.free(oldName);
 
       name = data.name;
 
-      socket.broadcast.emit('change:name', {
+      socket.broadcast.emit('user:name:change', {
         oldName: oldName,
         newName: name
       });

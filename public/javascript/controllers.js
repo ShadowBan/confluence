@@ -11,11 +11,11 @@ confluenceControllers.controller('ChatCtrl',['$scope', 'socket',
       $scope.messages = [{user:"System",text:("Hello " + data.name)}];
     });
 
-    socket.on('send:message', function (message) {
+    socket.on('message:send', function (message) {
       $scope.messages.push(message);
     });
 
-    socket.on('change:name', function (data) {
+    socket.on('user:name:change', function (data) {
       changeName(data.oldName, data.newName);
     });
 
@@ -65,7 +65,7 @@ confluenceControllers.controller('ChatCtrl',['$scope', 'socket',
     // ==============================
 
     $scope.changeName = function () {
-      socket.emit('change:name', {
+      socket.emit('user:name:change', {
         name: $scope.newName
       }, function (result) {
         if (!result) {
@@ -81,7 +81,7 @@ confluenceControllers.controller('ChatCtrl',['$scope', 'socket',
     };
 
     $scope.sendMessage = function () {
-      socket.emit('send:message', {
+      socket.emit('message:send', {
         message: $scope.message
       });
 
