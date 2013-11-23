@@ -21,10 +21,6 @@ var io = require('socket.io').listen(server);
 
 console.log('http server listening on %d', port);
 
-app.get('/messages', function(req,res){
-  res.json([{body: 'hello'},{body: 'world'}]);
-});
-
 app.get('/', function(req, res) {
   res.render('index', { name: 'Express user' });
 })
